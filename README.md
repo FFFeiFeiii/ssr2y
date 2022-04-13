@@ -1,69 +1,47 @@
-# 使用Heroku部署Xray高性能代理服务，通过ws传输的 (VMess和VLESS)两种协议
+## 使用Heroku部署Xray高性能代理服务，通过ws传输的 (VMess和VLESS)两种协议
 
->> 提醒： 滥用可能导致账户被BAN！！！ 
+> 提醒： Heroku 已经封禁本专案，请 Fork 本专案后，将 README.md 中的 用户名 替换为 自己的用户名
 
-> 提醒： Heroku 已经封禁本专案，请 Fork 本专案后，将 README.md 中的 用户名 替换为 自己的用户名 
-> 后务必修改 专案名称 (不要出现Heroku、Xray、V2ray等字符，再进行部署。 
+> 务必修改 专案名称 不要出现(Heroku、Xray、V2ray)等字符，再进行部署。 
 
 ## 概述
 
-用于在 Heroku 上部署 vless+websocket+tls，每次部署自动选择最新的 alpine linux 和 Xray core 。  
-vless 性能更加优秀，占用资源更少。
+Heroku 为我们提供了免费的容器服务，我们不应该滥用它，所以本项目不宜做为长期翻墙使用。
+- [x] 支持VMess和VLESS两种协议
+- [x] 支持自定义websocket路径
+- [x] 伪装首页（3D元素周期表）
+- [x] HTML5测速
+- [x] 使用v2ray最新版构建
+* 请求`/`，返回3D元素周期表
+* 请求`/speedtest/`，html5-speedtest测速页面
+* 请求`/test/`，文件下载速度测试
+* 请求`/ray`（可配置）v2ray websocket路径
 
-* 使用[xray](https://github.com/XTLS/Xray-core)+caddy同时部署通过ws传输的vmess vless 协议，并默认已配置好伪装网站（3D元素周期表）。
-* 支持tor网络，且可通过自定义网络配置文件启动xray和caddy来按需配置各种功能  
-* 支持存储自定义文件,目录及账号密码均为UUID,客户端务必使用TLS连接  
-  **Heroku 为我们提供了免费的容器服务，我们不应该滥用它，所以本项目不宜做为长期翻墙使用。**
-
-## 镜像
-
-本镜像不会因为大量占用资源而被封号。注册好Heroku账号并登录后,点击下面按钮便可部署.
-
-### 服务端
+## 服务端
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://dashboard.heroku.com/new?template=https://github.com/Lbingyi/HerokuXray) 
 
 点击上面紫色`Deploy to Heroku`，会跳转到heroku app创建页面，填上应用的名称、选择节点(建议用欧洲节点，美国节点会自动删除YouTube评论与点赞！)、按需修改部分参数和UUID后点击下面`deploy`开始创建部署应用  
 如出现错误，可以多尝试几次，待部署完成后页面底部会显示`Your app was successfully deployed` 
   * 点击Manage App可在Settings下的Config Vars项**查看和重新设置参数**  
-  * 点击Open app跳转域名即为heroku分配域名，格式为`xxx.herokuapp.com`，用于客户端  
-  * 默认协议密码为`24b4b1e1-7a89-45f6-858c-242cf53b5bdb`，WS路径为$UUID-[vmess|vless|trojan|ss|socks]格式
+  * 点击Open app跳转域名即为heroku分配域名，格式为`app.herokuapp.com`，用于客户端  
+  * 默认协议密码为`24b4b1e1-7a89-45f6-858c-242cf53b5bdb`，路径为`/ray`
 
-### 详细介绍
-
-请求`/`，返回3D元素周期表
-
-<img src="https://cdn.jsdelivr.net/gh/DaoChen6/Heroku-v2ray/doc/1.png" alt="image" style="zoom: 40%;" />
-
-请求`/speedtest/`，html5-speedtest测速页面
-
-<img src="https://cdn.jsdelivr.net/gh/DaoChen6/Heroku-v2ray/doc/2.png" alt="image" style="zoom:40%;" />
-
-请求`/test/`，文件下载速度测试
-
-![image](https://cdn.jsdelivr.net/gh/DaoChen6/Heroku-v2ray/doc/3.png)
-
-请求`/ray`（可配置）v2ray websocket路径
+## 客户端
 
 ### 环境变量说明
 
-| 名称     | 值                                                           | 说明                                                         |
+ | 名称     | 值                                                           | 说明                                                         |
 | -------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| PROTOCOL | vmess<br>vless（可选）                                       | 协议：nginx+vmess+ws+tls或是nginx+vless+ws+tls               |
-| UUID     | [uuid在线生成器](https://www.uuidgenerator.net "uuid在线生成器") | 用户主ID                                                     |
-| WS_PATH  | 默认为`/ray`                                                 | 路径，请勿使用`/speedtest`，`/`，`/test` 等已经被占用的请求路径 |
+| 协议 | vmess/vless（可选）                                               | 协议：nginx+vmess+ws+tls或是nginx+vless+ws+tls                |
+| UUID     | 24b4b1e1-7a89-45f6-858c-242cf53b5bdb| [uuid在线生成器](https://www.uuidgenerator.net "uuid在线生成器") `务必替换`                       |
+| 路径  | 默认为`/ray`                                                    | 路径，请勿使用`/speedtest`，`/`，`/test` 等已经被占用的请求路径   |
 
-### 客户端
-* **务必替换所有的`xxx.herokuapp.com`为heroku分配的项目域名**  
-* **务必替换所有的`24b4b1e1-7a89-45f6-858c-242cf53b5bdb`为部署时设置的UUID,建议更改,不要每个人都一样**  
-
-**XRay 将在部署时会自动实配安装`最新版本`。**
-
-**出于安全考量，除非使用 CDN，否则请不要使用自定义域名，而使用 Heroku 分配的二级域名，以实现 XRay vless Websocket + TLS。**
+出于安全考量，除非使用 CDN，否则请不要使用自定义域名，而使用 Heroku 分配的二级域名，以实现 XRay vless Websocket + TLS。
 
 heorku可以绑卡（应用一直在线，不扣费），绑定域名，套cf，[uptimerobot](https://uptimerobot.com/) 定时访问防止休眠（只监控CF Workers反代地址好了，不然几个账户一起监控没几天就把时间耗完了）
 
-### CloudFlare Workers反代代码（可分别用两个账号的应用程序名（`PROTOCOL`、`UUID`、`WS_PATH`保持一致），单双号天分别执行，那一个月就有550+550小时）
+CloudFlare Workers反代代码（分别用两个账号应用程序名（`协议`、`UUID`、`路径`保持一致），单双号分别执行，那每月就有550+550小时）
 
 <details>
 <summary>V2rayN(Xray、V2ray)</summary>
@@ -71,7 +49,7 @@ heorku可以绑卡（应用一直在线，不扣费），绑定域名，套cf，
 ```bash
 * 客户端下载：https://github.com/2dust/v2rayN/releases
 * 代理协议：vless 或 vmess
-* 地址：xxx.herokuapp.com
+* 地址：app.herokuapp.com
 * 端口：443
 * 默认UUID：24b4b1e1-7a89-45f6-858c-242cf53b5bdb
 * vmess额外id：0
@@ -88,7 +66,7 @@ heorku可以绑卡（应用一直在线，不扣费），绑定域名，套cf，
 <details>
 
 <details>
-<summary>使用Cloudflare的Workers来中转流量，单双日轮换反代代码`推荐`：</summary>
+<summary>使用Cloudflare的Workers来中转流量，单双日轮换反代代码(推荐)</summary>
 
 ```js
 const SingleDay = 'app1.herokuapp.com'
@@ -115,7 +93,7 @@ addEventListener(
 </details>
 
 <details>
-<summary>使用Cloudflare的Workers来中转流量，单账户反代代码：</summary>
+<summary>使用Cloudflare的Workers来中转流量，单账户反代代码</summary>
 
 ```js
 addEventListener(
@@ -132,7 +110,7 @@ addEventListener(
 </details>
 
  <details>
-<summary>使用Cloudflare的Workers来中转流量，每五天轮换一遍式反代代码：</summary>
+<summary>使用Cloudflare的Workers来中转流量，每五天轮换一遍式反代代码</summary>
 
 ```js
 const Day0 = 'app0.herokuapp.com'
@@ -171,7 +149,7 @@ addEventListener(
 </details>
  
  <details>
-<summary>使用Cloudflare的Workers来中转流量，一周轮换反代代码：</summary>
+<summary>使用Cloudflare的Workers来中转流量，一周轮换反代代码</summary>
 
 ```js
 const Day0 = 'app0.herokuapp.com'
