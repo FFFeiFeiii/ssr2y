@@ -48,6 +48,13 @@
   },
     "routing": {
         "rules": [
+            {
+                "type": "field",
+                "outboundTag": "sockstor",
+                "domain": [
+                    "geosite:tor"
+                ]
+            }
         ]
     }
 }
