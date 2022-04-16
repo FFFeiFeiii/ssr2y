@@ -1,75 +1,28 @@
 {
-  "inbounds":[
+  "inbounds": [
     {
       "port": 23323,
       "protocol": "vmess",
       "settings": {
-        "decryption": "none",
         "clients": [
           {
             "id": "$UUID",
-            "level": 1,
             "alterId": 0
           }
-        ]
+        ],
+        "disableInsecureEncryption": true
       },
       "streamSettings": {
         "network": "ws",
         "wsSettings": {
-           "path": "$WS_PATH"
-         }
+          "path": "$WS_PATH"
+        }
       }
     }
   ],
   "outbounds": [
-        {
-            "protocol": "freedom"
-        },
-        {
-            "protocol": "blackhole",
-            "tag": "blocked"
-        },
-        {
-            "protocol": "socks",
-            "tag": "sockstor",
-            "settings": {
-                "servers": [
-                    {
-                        "address": "127.0.0.1",
-                        "port": 9050
-                    }
-                ]
-            }
-        }
-  ],
-  "dns": {
-    "servers": [
-      "https+local://1.1.1.1/dns-query"
-    ]
-  },
-    "routing": {
-        "rules": [
-            {
-                "type": "field",
-                "outboundTag": "sockstor",
-                "domain": [
-                    "geosite:tor"
-                ]
-            },
-            {
-                "type": "field",
-                "outboundTag": "blocked",
-                "protocol": [
-                     "bittorrent"
-                ]
-             }, 
-            {
-                "type": "field",
-                "outboundTag": "blocked",
-                "domain": [
-                    "geosite:category-ads-all"
-                ]
-            }
-        ]
+    {
+      "protocol": "freedom"
     }
+  ]
 }
