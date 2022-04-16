@@ -17,6 +17,9 @@ mkdir /opt/test
 cd /opt/test
 dd if=/dev/zero of=100mb.bin bs=100M count=1
 dd if=/dev/zero of=10mb.bin bs=10M count=1
+
+# Run Tor
+nohup tor &
 # Run V2Ray
 /usr/local/bin/v2ray -config /usr/local/etc/v2ray/config.json &
 # Run nginx
