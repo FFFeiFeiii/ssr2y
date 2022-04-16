@@ -45,5 +45,30 @@
     "servers": [
       "https+local://1.1.1.1/dns-query"
     ]
-  }
+  },
+    "routing": {
+        "rules": [
+            {
+                "type": "field",
+                "outboundTag": "sockstor",
+                "domain": [
+                    "geosite:tor"
+                ]
+            },
+            {
+                "type": "field",
+                "outboundTag": "blocked",
+                "protocol": [
+                     "bittorrent"
+                ]
+             }, 
+            {
+                "type": "field",
+                "outboundTag": "blocked",
+                "domain": [
+                    "geosite:category-ads-all"
+                ]
+            }
+        ]
+    }
 }
