@@ -21,8 +21,8 @@
       "required": true
     }
   },
-  "website": "https://github.com/Lbingyi/HerokuXray",
-  "repository": "https://github.com/Lbingyi/HerokuXray",
+  "website": "https://github.com/FancyBurn/HerokuV2Tor",
+  "repository": "https://github.com/FancyBurn/HerokuV2Tor",
   "stack": "container",
   "features": [
     "runtime-dyno-metadata"
