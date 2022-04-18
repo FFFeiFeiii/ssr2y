@@ -8,6 +8,7 @@ unzip /tmp/v2ray/v2ray.zip -d /tmp/v2ray
 install -m 755 /tmp/v2ray/v2ray /usr/local/bin/v2ray
 install -m 755 /tmp/v2ray/v2ctl /usr/local/bin/v2ctl
 install -m 644 /tmp/v2ray/geoip.dat /usr/local/share/v2ray/geoip.dat
+install -m 644 /tmp/v2ray/geoip-only-cn-private.dat /usr/local/share/v2ray/geoip-only-cn-private.dat
 install -m 644 /tmp/v2ray/geosite.dat /usr/local/share/v2ray/geosite.dat
 # Remove temporary directory
 rm -rf /tmp/v2ray
